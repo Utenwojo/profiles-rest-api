@@ -18,7 +18,7 @@ apt-get install -y python3.10-dev python3.10-venv sqlite3 python3-pip supervisor
 mkdir -p $PROJECT_BASE_PATH
 git clone $PROJECT_GIT_URL $PROJECT_BASE_PATH
 
-python3 -m venv $PROJECT_BASE_PATH/env
+python3.10 -m venv $PROJECT_BASE_PATH/env
 
 $PROJECT_BASE_PATH/env/bin/pip install -r $PROJECT_BASE_PATH/requirements.txt uwsgi==2.0.21
 

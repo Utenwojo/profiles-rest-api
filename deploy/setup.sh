@@ -18,12 +18,16 @@ apt-get install -y python3-dev python3-venv sqlite3 python3-pip supervisor nginx
 mkdir -p $PROJECT_BASE_PATH
 git clone $PROJECT_GIT_URL $PROJECT_BASE_PATH
 
+mkdir -p $PROJECT_BASE_PATH/env
 python3 -m venv $PROJECT_BASE_PATH/env
 
 $PROJECT_BASE_PATH/env/bin/pip install -r $PROJECT_BASE_PATH/requirements.txt uwsgi==2.0.31
 
 # Run migrations
-$PROJECT_BASE_PATH/env/bin/python $PROJECT_BASE_PATH/manage.py migrate
+# $PROJECT_BASE_PATH/env/bin/python $PROJECT_BASE_PATH/manage.py migrate
+cd $PROJECT_BASE_PATH
+$PROJECT_BASE_PATH/env/bin/python manage.py migrate
+$PROJECT_BASE_PATH/env/bin/python manage.py collectstatic --noinput
 
 # Setup Supervisor to run our uwsgi process.
 cp $PROJECT_BASE_PATH/deploy/supervisor_profiles_api.conf /etc/supervisor/conf.d/profiles_api.conf
